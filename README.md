@@ -10,6 +10,13 @@ Following [Texas Hold'em rules](https://en.wikipedia.org/wiki/Texas_hold_%27em#H
 
 ## Running app
 
+### Docker Node.js
+
+- Make sure `docker` is available. If not, install [Docker](https://docs.docker.com/install/).
+- Build image: `npm run build:docker`
+- Run app and see usage: `docker run poker-cli`
+- Example: `docker run poker-cli compare "TS JS QS KS AS" "KS 2H 2D JD TD"`
+
 ### Local Node.js
 
 - Build app: `npm run build`

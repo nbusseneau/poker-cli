@@ -8,9 +8,12 @@
   },
   "scripts": {
     "start": "ts-node ./src/cli.ts compare \"TS JS QS KS AS\" \"KS 2H 2D JD TD\"",
+    "start:docker": "docker run poker-cli compare \"TS JS QS KS AS\" \"KS 2H 2D JD TD\"",
     "test": "mocha -r ts-node/register ./tests/**/*.test.ts",
     "build": "tsc",
+    "build:docker": "tsc && docker build -t poker-cli .",
     "clean": "rm -r ./dist",
+    "clean:docker": "docker container rm $(docker container ls -a -q -f ancestor=poker-cli) && docker image rm poker-cli",
     "clean:npm": "rm -r ./node_modules ./package-lock.json && npm install"
   },
   "author": "Skymirrh (https://github.com/Skymirrh)",
