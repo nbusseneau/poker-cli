@@ -38,11 +38,19 @@ describe('PokerHandRanker', function() {
     new Card(CardValue.Three, CardSuit.Spades),
   ]));
 
-  const straight = new Hand(new CardSet([
+  const straight1 = new Hand(new CardSet([
     new Card(CardValue.Four, CardSuit.Diamonds),
     new Card(CardValue.Two, CardSuit.Clubs),
     new Card(CardValue.Five, CardSuit.Hearts),
     new Card(CardValue.Six, CardSuit.Diamonds),
+    new Card(CardValue.Three, CardSuit.Spades),
+  ]));
+
+  const straight2 = new Hand(new CardSet([
+    new Card(CardValue.Four, CardSuit.Diamonds),
+    new Card(CardValue.Two, CardSuit.Clubs),
+    new Card(CardValue.Five, CardSuit.Hearts),
+    new Card(CardValue.Ace, CardSuit.Diamonds),
     new Card(CardValue.Three, CardSuit.Spades),
   ]));
 
@@ -92,7 +100,8 @@ describe('PokerHandRanker', function() {
       expect(PokerHandRanker.rank(onePair)[0]).to.be.equal(PokerHandType.OnePair);
       expect(PokerHandRanker.rank(twoPairs)[0]).to.be.equal(PokerHandType.TwoPairs);
       expect(PokerHandRanker.rank(threeOfAKind)[0]).to.be.equal(PokerHandType.ThreeOfAKind);
-      expect(PokerHandRanker.rank(straight)[0]).to.be.equal(PokerHandType.Straight);
+      expect(PokerHandRanker.rank(straight1)[0]).to.be.equal(PokerHandType.Straight);
+      expect(PokerHandRanker.rank(straight2)[0]).to.be.equal(PokerHandType.Straight);
       expect(PokerHandRanker.rank(flush)[0]).to.be.equal(PokerHandType.Flush);
       expect(PokerHandRanker.rank(fullHouse)[0]).to.be.equal(PokerHandType.FullHouse);
       expect(PokerHandRanker.rank(fourOfAKind)[0]).to.be.equal(PokerHandType.FourOfAKind);
@@ -105,7 +114,8 @@ describe('PokerHandRanker', function() {
       expect(PokerHandRanker.rank(onePair)[1][0].value).to.be.deep.equal(CardValue.Two);
       expect(PokerHandRanker.rank(twoPairs)[1][0].value).to.be.deep.equal(CardValue.Three);
       expect(PokerHandRanker.rank(threeOfAKind)[1][0].value).to.be.deep.equal(CardValue.Three);
-      expect(PokerHandRanker.rank(straight)[1][0].value).to.be.deep.equal(CardValue.Six);
+      expect(PokerHandRanker.rank(straight1)[1][0].value).to.be.deep.equal(CardValue.Six);
+      expect(PokerHandRanker.rank(straight2)[1][0].value).to.be.deep.equal(CardValue.Five);
       expect(PokerHandRanker.rank(flush)[1][0].value).to.be.deep.equal(CardValue.King);
       expect(PokerHandRanker.rank(fullHouse)[1][0].value).to.be.deep.equal(CardValue.Three);
       expect(PokerHandRanker.rank(fourOfAKind)[1][0].value).to.be.deep.equal(CardValue.Three);

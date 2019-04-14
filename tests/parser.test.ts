@@ -39,6 +39,7 @@ describe('Parser', function() {
       expect(Parser.parse("KS TH JC JD TD").type).to.be.equal(PokerHandType.TwoPairs);
       expect(Parser.parse("KS JH JC JD TD").type).to.be.equal(PokerHandType.ThreeOfAKind);
       expect(Parser.parse("6S 2H 5C 3D 4D").type).to.be.equal(PokerHandType.Straight);
+      expect(Parser.parse("AS 2H 5C 3D 4D").type).to.be.equal(PokerHandType.Straight);
       expect(Parser.parse("KS 2S 5S JS TS").type).to.be.equal(PokerHandType.Flush);
       expect(Parser.parse("TS KH KC KD TD").type).to.be.equal(PokerHandType.FullHouse);
       expect(Parser.parse("JS JH JC JD TD").type).to.be.equal(PokerHandType.FourOfAKind);
@@ -52,6 +53,7 @@ describe('Parser', function() {
       expect(Parser.parse("KS TH JC JD TD").tiebreaker[0].value).to.be.deep.equal(CardValue.Jack);
       expect(Parser.parse("KS JH JC JD TD").tiebreaker[0].value).to.be.deep.equal(CardValue.Jack);
       expect(Parser.parse("6S 2H 5C 3D 4D").tiebreaker[0].value).to.be.deep.equal(CardValue.Six);
+      expect(Parser.parse("AS 2H 5C 3D 4D").tiebreaker[0].value).to.be.deep.equal(CardValue.Five);
       expect(Parser.parse("KS 2S 5S JS TS").tiebreaker[0].value).to.be.deep.equal(CardValue.King);
       expect(Parser.parse("TS 6H 6C 6D TD").tiebreaker[0].value).to.be.deep.equal(CardValue.Six);
       expect(Parser.parse("KS JH JC JD JS").tiebreaker[0].value).to.be.deep.equal(CardValue.Jack);

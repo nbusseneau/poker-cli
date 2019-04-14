@@ -56,27 +56,45 @@ describe('Hand', function() {
 
   describe('#hasAllConsecutiveValues', function() {
     it('should return true if card values are all consecutive', function() {
-      const cardSet = new CardSet([
+      const straight = new CardSet([
         new Card(CardValue.Three, CardSuit.Diamonds),
         new Card(CardValue.Four, CardSuit.Clubs),
         new Card(CardValue.Six, CardSuit.Hearts),
         new Card(CardValue.Five, CardSuit.Diamonds),
         new Card(CardValue.Two, CardSuit.Spades),
       ]);
-      const hand = new Hand(cardSet);
+      const straightLowAce = new CardSet([
+        new Card(CardValue.Three, CardSuit.Diamonds),
+        new Card(CardValue.Four, CardSuit.Clubs),
+        new Card(CardValue.Ace, CardSuit.Hearts),
+        new Card(CardValue.Five, CardSuit.Diamonds),
+        new Card(CardValue.Two, CardSuit.Spades),
+      ]);
+      const hand = new Hand(straight);
+      const handLowAce = new Hand(straightLowAce);
       expect(hand.hasAllConsecutiveValues).to.be.true;
+      expect(handLowAce.hasAllConsecutiveValues).to.be.true;
     });
 
     it('should return false if card values are not all consecutive', function() {
-      const cardSet = new CardSet([
+      const straight = new CardSet([
         new Card(CardValue.Seven, CardSuit.Diamonds),
         new Card(CardValue.Four, CardSuit.Clubs),
         new Card(CardValue.Six, CardSuit.Hearts),
         new Card(CardValue.Five, CardSuit.Diamonds),
         new Card(CardValue.Two, CardSuit.Spades),
       ]);
-      const hand = new Hand(cardSet);
+      const straightLowAce = new CardSet([
+        new Card(CardValue.Three, CardSuit.Diamonds),
+        new Card(CardValue.Four, CardSuit.Clubs),
+        new Card(CardValue.Ace, CardSuit.Hearts),
+        new Card(CardValue.Two, CardSuit.Diamonds),
+        new Card(CardValue.Two, CardSuit.Spades),
+      ]);
+      const hand = new Hand(straight);
+      const handLowAce = new Hand(straightLowAce);
       expect(hand.hasAllConsecutiveValues).to.be.false;
+      expect(handLowAce.hasAllConsecutiveValues).to.be.false;
     });
   });
 
