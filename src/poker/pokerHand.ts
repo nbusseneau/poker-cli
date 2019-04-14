@@ -15,4 +15,8 @@ export default class PokerHand extends Hand {
     super(cardSet);
     [this.type, this.tiebreaker] = PokerHandRanker.rank(this);
   }
+
+  compareWith(other: PokerHand) {
+    return PokerHandComparer.compare(this, other);
+  }
 }
