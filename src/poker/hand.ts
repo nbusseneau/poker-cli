@@ -5,7 +5,7 @@ import CardSet from './cardSet';
  * A hand comprised of 5 cards ordered by value, with various helper methods to facilite hand ranking.
  */
 export default class Hand {
-  public readonly cards!: Card[];
+  private _cards: Card[];
   private _identicalValues!: Map<CardValue, Card[]>;
   private _hasAllConsecutiveValues!: boolean;
   private _hasAllSameSuit!: boolean;
@@ -14,7 +14,7 @@ export default class Hand {
     if (cardSet.size != 5) {
       throw new RangeError(`Wrong number of cards provided: must be exactly 5. Argument provided: ${cardSet}`)
     }
-    this.cards = this.sortCardsByValue(Array.from(cardSet));
+    this._cards = this.sortCardsByValue(Array.from(cardSet));
   }
 
   private sortCardsByValue(cards: Card[]): Card[] {
@@ -23,6 +23,10 @@ export default class Hand {
       if (left.value < right.value) { return 1; }
       return 0;
     });
+  }
+
+  public get cards(): Card[] {
+    return this._cards;
   }
 
   public get identicalValues(): Map<CardValue, Card[]> {
@@ -48,15 +52,37 @@ export default class Hand {
       return this._hasAllConsecutiveValues;
     }
 
-    // Works only if cards were sorted properly beforehand
-    for (let i = 0; i < this.cards.length - 1; i++) {
-      if (this.cards[i+1].value+1 !== this.cards[i].value) {
-        this._hasAllConsecutiveValues = false;
+    // Special treatment for low Ace in Straight hands
+    // If both an Ace and a Two are found in a hand with no identical values, then treat Ace as a One before checking if hand has all consecutive values
+    if (this.cards[0].value === CardValue.Ace
+      && this.cards[4].value === CardValue.Two
+      && this.identicalValues.size === 0) {
+      // Basically, this means moving Ace from high card to low card
+      const lowAceCards = this.cards.slice(1);
+      lowAceCards.push(new Card(CardValue.One, this.cards[0].suit));
+
+      const hasAllConsecutiveValuesWithLowAce = this.internalHasAllConsecutiveValues(lowAceCards);
+      if (hasAllConsecutiveValuesWithLowAce) {
+        // If hand is found to be straight with low Ace rule, use re-ordered cards for tiebreaker data (low Ace straights are weaker than high Ace straights)
+        this._cards = lowAceCards;
+        this._hasAllConsecutiveValues = true;
         return this._hasAllConsecutiveValues;
       }
     }
-    this._hasAllConsecutiveValues = true;
+
+    // Check if all card values are consecutive
+    this._hasAllConsecutiveValues = this.internalHasAllConsecutiveValues(this.cards);
     return this._hasAllConsecutiveValues;
+  }
+
+  private internalHasAllConsecutiveValues(cards: Card[]): boolean {
+    // Computations here work only if cards were sorted properly beforehand
+    for (let i = 0; i < cards.length - 1; i++) {
+      if (cards[i+1].value+1 !== cards[i].value) {
+        return false;
+      }
+    }
+    return true;
   }
 
   public get hasAllSameSuit(): boolean {
