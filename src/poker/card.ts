@@ -1,5 +1,6 @@
 export enum CardValue {
-  Two = 2,
+  One = 1,
+  Two,
   Three,
   Four,
   Five,
