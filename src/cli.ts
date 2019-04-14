@@ -36,6 +36,17 @@ program
   .command('compare <yourHand> <opponentHands...>')
   .description("compare your hand with one or several opponent hands")
   .action(function(yourHand: string, opponentHands: string[]) {
+    try {
+      const you = Parser.parse(yourHand);
+      for (let opponentHand of opponentHands) {
+        const opponent = Parser.parse(opponentHand);
+        you.compareWith(opponent);
+        console.log();
+      }
+    }
+    catch (e) {
+      console.error(e.message);
+    }
   });
 
 // Find the winner out of several hands
@@ -43,6 +54,29 @@ program
   .command('winner <hands...>')
   .description("compare two or more hands (for example, all hands on a table) to determine which one wins")
   .action(function(hands: string[]) {
+    if (hands.length < 2) {
+      console.error("You need to provide at least 2 hands for the 'winner' command to work.");
+      console.error("Use '-h' to see usage.");
+      process.exitCode = 1;
+    }
+    else {
+      try {
+        let first = Parser.parse(hands[0]);
+        for (let i = 1; i < hands.length; i++) {
+          const opponent = Parser.parse(hands[i]);
+          let result = first.compareWith(opponent);
+          if (result === 2) {
+            first = opponent;
+            console.log(`New winning hand: ${opponent}`);
+          }
+          console.log();
+        }
+        console.log(`Winning hand: ${first}.`);
+      }
+      catch (e) {
+        console.error(e.message);
+      }
+    }
   });
 
 // Display help immediately if no arguments were provided
