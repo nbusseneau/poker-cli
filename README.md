@@ -28,3 +28,8 @@ Following [Texas Hold'em rules](https://en.wikipedia.org/wiki/Texas_hold_%27em#H
 
 - No build required (tests are ran directly through `ts-node`).
 - Run tests: `npm run test`
+
+## Potential improvements
+
+- Tests are not actually unit tests. No mocking was done to isolate units, we directly use interconnected objects/methods, so these are more like integration tests (if something breaks somewhere, a whole lot of tests are going to break).
+- Hand ranking could be optimized further by reversing the algorithm: right now we test a hand against each hand type ruleset in order from highest to lowest rank to determine its type (this has already been sped up thanks to precomputation of values, see `Hand` class). It would be faster to pre-filter which hand type to test depending on these values (e.g. if we know we have no identical values thanks to the precomputation, don't bother checking hand types with rulesets with identical values).
