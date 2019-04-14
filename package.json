@@ -8,6 +8,7 @@
   },
   "scripts": {
     "start": "ts-node ./src/cli.ts compare \"TS JS QS KS AS\" \"KS 2H 2D JD TD\"",
+    "test": "mocha -r ts-node/register ./tests/**/*.test.ts",
     "build": "tsc",
     "clean": "rm -r ./dist",
     "clean:npm": "rm -r ./node_modules ./package-lock.json && npm install"
@@ -18,7 +19,11 @@
     "commander": "^2.19.0"
   },
   "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.6",
     "@types/node": "^11.13.0",
+    "chai": "^4.2.0",
+    "mocha": "^6.1.0",
     "ts-node": "^8.0.3",
     "typescript": "^3.4.2"
   }

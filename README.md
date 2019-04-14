@@ -16,3 +16,8 @@ Following [Texas Hold'em rules](https://en.wikipedia.org/wiki/Texas_hold_%27em#H
 - Install app: `npm install -g .`
 - Run app and see usage: `poker-cli`
 - Example: `poker-cli compare "TS JS QS KS AS" "KS 2H 2D JD TD"`
+
+## Running tests
+
+- No build required (tests are ran directly through `ts-node`).
+- Run tests: `npm run test`
