@@ -1,0 +1,25 @@
+{
+  "name": "poker-cli",
+  "version": "0.0.1",
+  "description": "Poker hand ranking and comparison following Texas Hold'em rules.",
+  "main": "./dist/parser.js",
+  "bin": {
+    "poker-cli": "./dist/cli.js"
+  },
+  "scripts": {
+    "start": "ts-node ./src/cli.ts compare \"TS JS QS KS AS\" \"KS 2H 2D JD TD\"",
+    "build": "tsc",
+    "clean": "rm -r ./dist",
+    "clean:npm": "rm -r ./node_modules ./package-lock.json && npm install"
+  },
+  "author": "Skymirrh (https://github.com/Skymirrh)",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^2.19.0"
+  },
+  "devDependencies": {
+    "@types/node": "^11.13.0",
+    "ts-node": "^8.0.3",
+    "typescript": "^3.4.2"
+  }
+}
